@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register for Interview - Proof Of Concept</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-container {
+            width: 80vw;
+            max-width: 600px;
+            padding: 4vh 4vw;
+            background: #1e1e1e;
+            border-radius: 2vmin;
+            box-shadow: 0 0.5vmin 1vmin rgba(255, 255, 255, 0.1);
+        }
+        .form-container h2 {
+            margin-bottom: 2vh;
+            color: #ffffff;
+            text-align: center;
+            font-size: 4vmin;
+        }
+        .form-container p {
+            color: #cccccc;
+            text-align: center;
+            margin-bottom: 3vh;
+            font-size: 2.5vmin;
+        }
+        .form-container form input,
+        .form-container form button {
+            width: 100%;
+            padding: 2vh 2vw;
+            margin-bottom: 2vh;
+            border: 0.2vmin solid #333;
+            border-radius: 1vmin;
+            font-size: 2.5vmin;
+        }
+        .form-container form input {
+            background: #ffffff;
+            color: #000000;
+        }
+        .form-container form button {
+            background: #1e90ff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .form-container form button:hover {
+            background: #1c7ecf;
+        }
+        @media (max-width: 1600px) {
+            .form-container {
+                width: 90vw;
+                padding: 3vh 3vw;
+            }
+            .form-container h2 {
+                font-size: 6vmin;
+            }
+            .form-container p {
+                font-size: 3.5vmin;
+            }
+            .form-container form input {
+                font-size: 2.5vmin;
+                padding: 1.5vh 1vw;
+                width: 100%; /* Ensure the inputs take up full width */
+                box-sizing: border-box; /* Include padding in the width */
+            }
+            .form-container form button {
+                font-size: 2.5vmin;
+                padding: 1.5vh 1vw;
+                width: 100%; /* Ensure the button takes up full width */
+                box-sizing: border-box; /* Include padding in the width */
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Register for an Interview</h2>
+        <p>Whether you're registering for yourself or a friend, feel free to drop any names below.</p>
+        <form id="questionnaire-form" onsubmit="return handleFormSubmit(this)">
+            <input type="text" id="name" name="Name" placeholder="Name" required>
+            <input type="text" id="social" name="Linkedin, Instagram, or Tiktok" placeholder="Linkedin, Instagram, or Tiktok" required>
+            <input type="text" id="reason" name="Why Should We Interview Them?" placeholder="Why Should We Interview Them?" required>
+            <button type="submit">Submit</button>
+        </form>
+     
+        <script>
+            function handleFormSubmit(form) {
+                const scriptURL = "https://script.google.com/macros/s/AKfycbzYl7GUTaamSBUk8zmdjbokFw0d_GYLHDttxEvVayb9TfIL2llVzmfMnwGzfU104P73/exec";
+                
+                console.log('Submitting form data to:', scriptURL);
+        
+                fetch(scriptURL, { 
+                    method: 'POST', 
+                    body: new FormData(form),
+                    mode: 'no-cors'  // Bypass CORS restrictions
+                })
+                .then(response => {
+                    // Since the response is opaque (due to no-cors), you won't be able to inspect the response
+                    console.log('Form submitted successfully!'); 
+                    form.reset(); // Clear the form
+                    alert('Form submitted successfully!');
+                })
+                .catch(error => {
+                    console.error('Error! Details:', error.message);
+                    alert('Error submitting form: ' + error.message);
+                });
+        
+                return false; // Prevent the default form submission
+            }
+        </script>
+        
+        
+    </div>
+</body>
+</html>
